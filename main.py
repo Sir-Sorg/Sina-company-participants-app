@@ -1,11 +1,8 @@
 from fastapi import FastAPI
+from routes.route import router
 
 app = FastAPI()
-
-
-@app.get("/")
-async def root():
-    return {"message": "Hello World"}
+app.include_router(router)
 
 # TODO:
 # ابتدا با استفاده از فریم ورک fastapi و دیتابیس mongodb یک template درست میکنید که صرفا چند route ساده دارد و authorize کاربر را انجام می دهد و میتوان به راحتی در آن route ایجاد کرد و بک اند یک سایت را با آن توسعه داد.
