@@ -3,14 +3,20 @@ from bs4 import BeautifulSoup
 
 
 def connect_to_account():
+
+    # Initial session and other parametrs
     session = requests.Session()
     login_url = 'https://twitter.com/i/flow/login'
     request_header = {
         'User-Agent': 'Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.77 Safari/537.36'}
     proxies = {'https': '127.0.0.1:2080'}
+
+    # Request Get to find Token
     response = session.get(login_url, headers=request_header, proxies=proxies)
     soup = BeautifulSoup(response.text, "lxml")
     token = soup.select_one("[name='authenticity_token']")['value']
+
+    # Creating Post Request
     payload = {
         'session[username_or_email]': email,
         'session[password]': password,
@@ -21,16 +27,7 @@ def connect_to_account():
         'authenticity_token': token,
         'remember_me': 1
     }
-    headers = {
-        'accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
-        'content-type': 'application/x-www-form-urlencoded',
-        'origin': 'https://twitter.com',
-        'referer': 'https://twitter.com/login',
-        'upgrade-insecure-requests': '1',
-        'user-agent': 'Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36'
-    }
-    res = session.post("https://twitter.com/sessions",
-                       data=payload, headers=headers)
+    res = session.post(login_url, data=payload, headers=request_header)
     soup = BeautifulSoup(res.text, "lxml")
     for item in soup.select(".tweet-text"):
         print(item.text)
@@ -38,6 +35,7 @@ def connect_to_account():
 # Account Data :
 # username : @josog43667
 
+# https://api.twitter.com/1.1/onboarding/task.json
 
 {"flow_token": "g;168926380412289740:-1689263916859:LfHzi8PDth1bx9MC1I0o6uBr:1", "subtask_inputs": [{"subtask_id": "LoginEnterUserIdentifierSSO", "settings_list": {
     "setting_responses": [{"key": "user_identifier", "response_data": {"text_data": {"result": "josog43667"}}}], "link": "next_link"}}]}
