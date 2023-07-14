@@ -1,7 +1,8 @@
 def indivual_serialize(mongoData) -> dict:
     return {
-        'id': str(mongoData['_id']),
-        'name': mongoData['name'],
+        '_id': str(mongoData['_id']),
+        'data': mongoData['data'],
+        'password':mongoData['password']
     }
 
 
@@ -9,7 +10,7 @@ def list_serialize(datas) -> list:
     return [indivual_serialize(data) for data in datas]
 
 
-def following_names(followings: dict) -> dict:
+def following_names(followings) -> dict:
     following_name = []
     for counter, following in enumerate(followings['data'], 1):
         following_name.append(

@@ -68,7 +68,7 @@ async def view_account(viewer_info: Viwer):
 
 
 @router.delete('/{id}')
-async def delete_account_information(id: str):
+async def delete_account(id: str):
     query = {'_id': ObjectId(id)}
     collection.find_one_and_delete(query)
-    return {'status': 'OK'}
+    return {'Status': 'DELETED'}
