@@ -32,39 +32,26 @@ def connect_to_account():
     for item in soup.select(".tweet-text"):
         print(item.text)
 
-    def get_flow_token():
-        request_header = {
-            'User-Agent': 'Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.77 Safari/537.36',
-            'authorization': 'Bearer AAAAAAAAAAAAAAAAAAAAANRILgAAAAAAnNwIzUejRCOuH5E6I8xnZz4puTs%3D1Zv7ttfk8LF81IUq16cHjhLTvJu4FA33AGWWjCpTnA'
-        }
-        proxies = {'https': '127.0.0.1:2080'}
-        session = requests.Session()
-        params = {'flow_name': 'login'}
-        payload = {'input_flow_data': {
-            'flow_context': {'debug_overrides': {}, 'start_location': {'location': 'manual_link'}, }, },
-            'subtask_versions': {'action_list': 2, 'alert_dialog': 1, 'app_download_cta': 1, 'check_logged_in_account': 1,
-                                'choice_selection': 3, 'contacts_live_sync_permission_prompt': 0, 'cta': 7, 'email_verification': 2, 'end_flow': 1,
-                                'enter_date': 1, 'enter_email': 2, 'enter_password': 5, 'enter_phone': 2, 'enter_recaptcha': 1, 'enter_text': 5,
-                                'enter_username': 2, 'generic_urt': 3, 'in_app_notification': 1, 'interest_picker': 3, 'js_instrumentation': 1,
-                                'menu_dialog': 1, 'notifications_permission_prompt': 2, 'open_account': 2, 'open_home_timeline': 1, 'open_link': 1,
-                                'phone_verification': 4, 'privacy_options': 1, 'security_key': 3, 'select_avatar': 4, 'select_banner': 2,
-                                'settings_list': 7, 'show_code': 1, 'sign_up': 2, 'sign_up_review': 4, 'tweet_selection_urt': 1, 'update_users': 1,
-                                'upload_media': 1, 'user_recommendations_list': 4, 'user_recommendations_urt': 1, 'wait_spinner': 3, 'web_modal': 1}}
 
-        res = session.post(
-            "https://api.twitter.com/1.1/onboarding/task.json", headers=request_header, params=params, proxies=proxies, json=payload)
-        print(res.json)
+def get_flow_token():
+    params = {'flow_name': 'login'}
+    payload = {'input_flow_data': {
+        'flow_context': {'debug_overrides': {}, 'start_location': {'location': 'manual_link'}, }, },
+        'subtask_versions': {'action_list': 2, 'alert_dialog': 1, 'app_download_cta': 1, 'check_logged_in_account': 1,
+                             'choice_selection': 3, 'contacts_live_sync_permission_prompt': 0, 'cta': 7, 'email_verification': 2, 'end_flow': 1,
+                             'enter_date': 1, 'enter_email': 2, 'enter_password': 5, 'enter_phone': 2, 'enter_recaptcha': 1, 'enter_text': 5,
+                             'enter_username': 2, 'generic_urt': 3, 'in_app_notification': 1, 'interest_picker': 3, 'js_instrumentation': 1,
+                             'menu_dialog': 1, 'notifications_permission_prompt': 2, 'open_account': 2, 'open_home_timeline': 1, 'open_link': 1,
+                             'phone_verification': 4, 'privacy_options': 1, 'security_key': 3, 'select_avatar': 4, 'select_banner': 2,
+                             'settings_list': 7, 'show_code': 1, 'sign_up': 2, 'sign_up_review': 4, 'tweet_selection_urt': 1, 'update_users': 1,
+                             'upload_media': 1, 'user_recommendations_list': 4, 'user_recommendations_urt': 1, 'wait_spinner': 3, 'web_modal': 1}}
+    session = requests.Session()
+    headers = {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.77 Safari/537.36'}
+    proxies = {'https': '127.0.0.1:2080'}
+    response = session.post("https://api.twitter.com/1.1/onboarding/task.json",
+                            proxies=proxies, headers=headers, params=params, json=payload)
+    print(response.text)
 
-# Account Data :
-# username : @josog43667
 
-# https://api.twitter.com/1.1/onboarding/task.json
-
-{"flow_token": "g;168926380412289740:-1689263916859:LfHzi8PDth1bx9MC1I0o6uBr:1", "subtask_inputs": [{"subtask_id": "LoginEnterUserIdentifierSSO", "settings_list": {
-    "setting_responses": [{"key": "user_identifier", "response_data": {"text_data": {"result": "josog43667"}}}], "link": "next_link"}}]}
-{"flow_token": "g;168926380412289740:-1689263916859:LfHzi8PDth1bx9MC1I0o6uBr:6", "subtask_inputs": [
-    {"subtask_id": "LoginEnterPassword", "enter_password": {"password": "ps4plus14", "link": "next_link"}}]}
-
-password = 'ps4plus14'
-email = 'josog43667@msback.com'
-connect_to_account()
+get_flow_token()
