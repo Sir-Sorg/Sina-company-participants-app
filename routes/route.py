@@ -2,6 +2,7 @@ from fastapi import APIRouter
 from models.twitter import Twitter
 from config.database import collection
 from schema.schemas import list_serialize
+from services.twitter_spider import ACCOUNT, USERNAME, PASSWORD
 from bson import ObjectId
 
 router = APIRouter()
@@ -11,7 +12,9 @@ router = APIRouter()
 
 @router.get('/')
 async def get_account_information():
-    info = list_serialize(collection.find())
+    # info = list_serialize(collection.find())
+    ACCOUNT.login(USERNAME, PASSWORD)
+    info = ACCOUNT.me
     return info
 
 # POST Request Methods
