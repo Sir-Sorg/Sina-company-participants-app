@@ -13,7 +13,7 @@ from . import util
 from . import config
 
 
-class TweeterPy:
+class Twitter_Conecction:
 
     def __init__(self):
         self.generate_session()

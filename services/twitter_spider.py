@@ -1,4 +1,4 @@
-from core import TweeterPy
+from core import Twitter_Conecction
 from core import config
 
 USERNAME = 'josog43667'
@@ -8,7 +8,7 @@ PASSWORD = 'ps4plus14'
 
 def main():
     config.PROXY = {"http": "127.0.0.1:2080", "https": "127.0.0.1:2080"}
-    twitter = TweeterPy()
+    twitter = Twitter_Conecction()
     twitter.login(USERNAME, PASSWORD)
     print(twitter.me)
     # print(twitter.get_user_id('elonmusk'))
