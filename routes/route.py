@@ -21,11 +21,6 @@ async def get_account_information():
 
 @router.post('/login')
 async def login_account(user_info: User):
-
-    if not user_info.username_or_email or not user_info.password:
-        user_info.username_or_email = 'JjooYadate2397'
-        user_info.password = 'ps4plus14'
-
     account = Twitter_Conecction()
     try:
         account.login(user_info.username_or_email, user_info.password)
@@ -40,11 +35,6 @@ async def login_account(user_info: User):
 
 @router.post('/view')
 async def view_account(viewer_info: Viwer):
-
-    if not viewer_info.username or not viewer_info.db_id:
-        viewer_info.username = 'JjooYadate2397'
-        viewer_info.db_id = '64b191fa90b8e5e94ae68d22'
-
     try:
         viewer_info.db_id = ObjectId(viewer_info.db_id)
         query = {'_id': viewer_info.db_id}
