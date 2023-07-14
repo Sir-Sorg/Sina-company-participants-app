@@ -1,5 +1,5 @@
-from tweeterpy import TweeterPy
-from tweeterpy import config
+from core import TweeterPy
+from core import config
 
 USERNAME = 'josog43667'
 EMAIL = 'josog43667@msback.com'
