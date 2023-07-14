@@ -20,7 +20,7 @@ async def get_account_information():
 
 
 @router.post('/login')
-async def find_account(user_info: User):
+async def login_account(user_info: User):
 
     if not user_info.username_or_email or not user_info.password:
         user_info.username_or_email = 'JjooYadate2397'
@@ -30,12 +30,11 @@ async def find_account(user_info: User):
     try:
         account.login(user_info.username_or_email, user_info.password)
         info = account.me
-        return info
+        inserted_id = collection.insert_one(info)
+        return {'Status': 'INSERTED', 'id': str(inserted_id.inserted_id)}
     except:
         raise HTTPException(
             status_code=400, detail="Username/Password was incorect")
-    # inserted_id = collection.insert_one(account)
-    # return {'status': 'INSERTED', 'id': str(inserted_id.inserted_id)}
 
 # DELET Request Methods
 
