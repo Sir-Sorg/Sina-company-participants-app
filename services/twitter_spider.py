@@ -4,7 +4,7 @@ from .core import config
 USERNAME = 'josog43667'
 EMAIL = 'josog43667@msback.com'
 PASSWORD = 'ps4plus14'
-config.PROXY = {"http": "26.26.26.1:10809", }
+config.PROXY = {"http": "127.0.0.1:2080", "https": "127.0.0.1:2080"}
 ACCOUNT = Twitter_Conecction()
 
 
