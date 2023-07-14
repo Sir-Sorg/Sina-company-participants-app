@@ -1,14 +1,13 @@
 from .core import Twitter_Conecction
 from .core import config
 
-USERNAME = 'josog43667'
-EMAIL = 'josog43667@msback.com'
+USERNAME = 'JjooYadate2397'
 PASSWORD = 'ps4plus14'
 config.PROXY = {"http": "127.0.0.1:2080", "https": "127.0.0.1:2080"}
-ACCOUNT = Twitter_Conecction()
 
 
 def main():
+    ACCOUNT = Twitter_Conecction()
     ACCOUNT.login(USERNAME, PASSWORD)
     print(ACCOUNT.me)
     # print(twitter.get_user_id('elonmusk'))

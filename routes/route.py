@@ -1,8 +1,9 @@
 from fastapi import APIRouter
-from models.twitter import Twitter
+from fastapi.exceptions import HTTPException
+from models.models import User
 from config.database import collection
 from schema.schemas import list_serialize
-from services.twitter_spider import ACCOUNT, USERNAME, PASSWORD
+from services.twitter_spider import Twitter_Conecction
 from bson import ObjectId
 
 router = APIRouter()
@@ -12,19 +13,29 @@ router = APIRouter()
 
 @router.get('/')
 async def get_account_information():
-    # info = list_serialize(collection.find())
-    ACCOUNT.login(USERNAME, PASSWORD)
-    info = ACCOUNT.me
+    info = list_serialize(collection.find())
     return info
 
 # POST Request Methods
 
 
-@router.post('/')
-async def find_account(data: Twitter):
-    account = dict(data)
-    inserted_id = collection.insert_one(account)
-    return {'status': 'INSERTED', 'id': str(inserted_id.inserted_id)}
+@router.post('/login')
+async def find_account(user_info: User):
+
+    if not user_info.username_or_email or not user_info.password:
+        user_info.username_or_email = 'JjooYadate2397'
+        user_info.password = 'ps4plus14'
+
+    account = Twitter_Conecction()
+    try:
+        account.login(user_info.username_or_email, user_info.password)
+        info = account.me
+        return info
+    except:
+        raise HTTPException(
+            status_code=400, detail="Username/Password was incorect")
+    # inserted_id = collection.insert_one(account)
+    # return {'status': 'INSERTED', 'id': str(inserted_id.inserted_id)}
 
 # DELET Request Methods
 
