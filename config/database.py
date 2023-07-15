@@ -1,7 +1,9 @@
 from pymongo import MongoClient
+from dotenv import dotenv_values
 
-url = "mongodb+srv://admin:admin@cluster0.4uzsusr.mongodb.net/?retryWrites=true&w=majority"
-client = MongoClient(url)
+# Load MongoDb uri link from environment variables
+secrets = dotenv_values(".env")
+client = MongoClient(secrets['uri'])
 
 db = client["twitter_data"]
 collection = db["twitter_collection"]
